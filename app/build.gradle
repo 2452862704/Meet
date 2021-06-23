@@ -1,0 +1,48 @@
+apply plugin: 'com.android.application'
+
+android {
+    if (rootProject.hasProperty("devBulid")) {
+        splits.abi.enable = false
+        splits.density.enable = false
+        //禁止PNG压缩
+        aaptOptions.cruncherEnabled = false
+    }
+    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
+    buildToolsVersion rootProject.ext.android["buildToolsVersion"]
+    defaultConfig {
+        applicationId rootProject.ext.android["applicationId"]
+        minSdkVersion rootProject.ext.android["minSdkVersion"]
+        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
+        versionCode rootProject.ext.android["versionCode"]
+        versionName rootProject.ext.android["versionName"]
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        //调试
+        resConfigs("xxxhdpi")
+    }
+    buildTypes {
+        debug {
+            //自定义Gradle常量
+            buildConfigField("boolean", "LOG_DEBUG", "true")
+            buildConfigField("String", "LOG_TAG", "\"Meet\"")
+            buildConfigField("String", "SP_NAME", "\"Config\"")
+        }
+        release {
+            buildConfigField("boolean", "LOG_DEBUG", "false")
+            buildConfigField("String", "LOG_TAG", "\"Meet\"")
+            buildConfigField("String", "SP_NAME", "\"Config\"")
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'com.google.android.material:material:1.2.1'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    implementation project(path: ":framework")
+}
