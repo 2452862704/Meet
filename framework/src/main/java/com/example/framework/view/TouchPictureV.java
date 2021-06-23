@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import com.example.framework.R;
@@ -23,6 +24,7 @@ public class TouchPictureV extends View {
     public TouchPictureV(Context context) {
         super(context);
         init();
+        Log.i("TAG", "TouchPictureV: ");
     }
 
     public TouchPictureV(Context context, AttributeSet attrs) {
