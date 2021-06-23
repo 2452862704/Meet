@@ -25,6 +25,8 @@ public class TouchPictureV extends View {
         super(context);
         init();
         Log.i("TAG", "TouchPictureV: ");
+        Log.i("TAG", "TouchPictureV: ");
+        Log.i("TAG", "TouchPictureV: ");
     }
 
     public TouchPictureV(Context context, AttributeSet attrs) {
